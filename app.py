@@ -272,3 +272,5 @@ def main():
         st.download_button(
             "Download Translated PDF", "output.pdf", "Click here to download"
         )
+if __name__ == "__main__":
+    main()
