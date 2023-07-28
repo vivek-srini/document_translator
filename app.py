@@ -265,8 +265,10 @@ def main():
         convert_images_to_pdf(final_images, "output.pdf")
 
         st.success("Translation and background removal completed!")
-        st.download_button(
-            "Download Translated PDF", "output.pdf", "Click here to download"
-        )
+        if st.button("Download Translated PDF"):
+            with open("eng_output.pdf", "rb") as f:
+                pdf_data = f.read()
+            st.download_button(label="Click here to download", data=pdf_data, file_name="output.pdf", mime="application/pdf")
+
 if __name__ == "__main__":
     main()
