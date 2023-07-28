@@ -91,3 +91,4 @@ fpdf
 opencv-python
 python-doctr[tf]
 protobuf==3.20.*
+pip install rapidfuzz==2.15.1
