@@ -1,5 +1,5 @@
 import streamlit as st
-from googletrans import Translator
+from mtranslate import translate
 from PIL import Image, ImageDraw, ImageFont
 import sys
 import cv2
@@ -12,6 +12,7 @@ import os
 import PIL.Image
 import os
 from fpdf import FPDF
+
 
 class BackgroundColorDetector():
     def __init__(self, imageLoc):
@@ -180,18 +181,14 @@ def remove_text(filename):
 
 
 
-def translate_sentence(text, target_language='en'):
-    translator = Translator()
+def translate_sentence(text, target_language='es'):
+    
 
-    # Detect the source language (English in this case)
-    detected_lang = translator.detect(text)
-    source_lang = detected_lang.lang
-
-    # Translate the text to the target language
-    translation = translator.translate(text, src=source_lang, dest=target_language)
+    translated_text = translate(text, 'en', 'es')
+    return translated_text
 
     # Return the translated text
-    return translation.text
+    
 
 def find_lines_and_top_left(json_output):
   lines = []
