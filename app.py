@@ -292,9 +292,9 @@ def main():
 
     # Download the translated PDF
     if st.button("Download Translated PDF") and st.session_state.translation_done:
-        with open("eng_output.pdf", "rb") as f:
+        with open("output.pdf", "rb") as f:
             pdf_data = f.read()
-        st.download_button(label="Click here to download", data=pdf_data, file_name="eng_output.pdf", mime="application/pdf")
+        st.download_button(label="Click here to download", data=pdf_data, file_name="output.pdf", mime="application/pdf")
 
 if __name__ == "__main__":
     main()
