@@ -247,13 +247,15 @@ def final_output(input_filename,output_filename):
 
 # ... (Previous code remains the same)
 
+# ... (Previous code remains the same)
+
 def generate_pdf(uploaded_file):
     # Process the PDF file
-    with open("input.pdf", "wb") as f:
+    with open("output.pdf", "wb") as f:
         f.write(uploaded_file.getbuffer())
 
     st.write("Converting PDF to images...")
-    image_paths = convert_pdf_to_images("input.pdf")
+    image_paths = convert_pdf_to_images("output.pdf")
 
     st.write("Removing text from images...")
     final_images = []
@@ -263,11 +265,10 @@ def generate_pdf(uploaded_file):
         final_images.append(final_img)
 
     st.write("Converting images back to PDF...")
-    convert_images_to_pdf(final_images, "output.pdf")
+    convert_images_to_pdf(final_images, "eng_output.pdf")
 
     st.success("Translation and background removal completed!")
-    st.session_state.translation_done = True
-    st.session_state.final_images = final_images
+    return final_images
 
 def main():
     st.title("Document Translation with Background Removal")
@@ -281,7 +282,9 @@ def main():
     if uploaded_file is not None:
         # Process the PDF file if translation not done yet
         if not st.session_state.translation_done:
-            generate_pdf(uploaded_file)
+            final_images = generate_pdf(uploaded_file)
+            st.session_state.final_images = final_images
+            st.session_state.translation_done = True
 
     # Display the generated images
     if "final_images" in st.session_state:
@@ -292,12 +295,9 @@ def main():
 
     # Download the translated PDF
     if st.button("Download Translated PDF") and st.session_state.translation_done:
-        with open("output.pdf", "rb") as f:
+        with open("eng_output.pdf", "rb") as f:
             pdf_data = f.read()
-        st.download_button(label="Click here to download", data=pdf_data, file_name="output.pdf", mime="application/pdf")
+        st.download_button(label="Click here to download", data=pdf_data, file_name="eng_output.pdf", mime="application/pdf")
 
 if __name__ == "__main__":
     main()
-
-
-
