@@ -90,4 +90,4 @@ tensorflow_addons
 pdf2image
 fpdf
 opencv-python
-python-doctr[tf]
+python-doctr[torch]
