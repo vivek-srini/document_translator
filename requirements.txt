@@ -90,4 +90,4 @@ tf2onnx
 tensorflow_addons
 pdf2image
 fpdf
-opencv-python-headless
+opencv-python
