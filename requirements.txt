@@ -85,7 +85,7 @@ audio-recorder-streamlit
 SpeechRecognition
 streamlit-audiorecorder
 pydub
-"python-doctr"
+python-doctr
 tf2onnx
 tensorflow_addons
 rapidfuzz==2.15.1
