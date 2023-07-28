@@ -273,9 +273,7 @@ def main():
         convert_images_to_pdf(final_images, "eng_output.pdf")
 
         st.success("Translation and background removal completed!")
-        st.download_button(
-            "Download Translated PDF", "eng_output.pdf", "Click here to download"
-        )
+        st.download_button(label="Click here to download", data=pdf_data, file_name="eng_output.pdf", mime="application/pdf")
 
         # Display the generated images
         st.write("Generated Images:")
