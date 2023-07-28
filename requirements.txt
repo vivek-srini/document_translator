@@ -85,7 +85,6 @@ audio-recorder-streamlit
 SpeechRecognition
 streamlit-audiorecorder
 pydub
-python-doctr
 tf2onnx
 tensorflow_addons
 pdf2image
