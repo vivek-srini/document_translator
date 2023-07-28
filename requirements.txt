@@ -91,4 +91,4 @@ tensorflow_addons
 rapidfuzz==2.15.1
 googletrans==4.0.0-rc1
 pdf2image
-pip install fpdf
+fpdf
