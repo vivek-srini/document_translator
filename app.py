@@ -180,7 +180,7 @@ def remove_text(filename):
 def translate_sentence(text, target_language='es'):
     
 
-    translated_text = translate(text, 'en', 'es')
+    translated_text = translate(text, 'es', 'en')
     return translated_text
 
     # Return the translated text
