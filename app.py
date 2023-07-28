@@ -249,55 +249,40 @@ def final_output(input_filename,output_filename):
 
 # ... (Previous code remains the same)
 
-def generate_pdf(uploaded_file):
-    # Process the PDF file
-    with open("input.pdf", "wb") as f:
-        f.write(uploaded_file.getbuffer())
-
-    st.write("Converting PDF to images...")
-    image_paths = convert_pdf_to_images("input.pdf")
-
-    st.write("Removing text from images...")
-    final_images = []
-    for i, image_path in enumerate(image_paths):
-        img_without_txt, json_output = remove_text(image_path)
-        final_img = put_text_on_image(img_without_txt, json_output, i)
-        final_images.append(final_img)
-
-    st.write("Converting images back to PDF...")
-    convert_images_to_pdf(final_images, "output.pdf")
-
-    st.success("Translation and background removal completed!")
-    return final_images
-
 def main():
     st.title("Document Translation with Background Removal")
-
-    # Check if the translation process has already been completed
-    if "translation_done" not in st.session_state:
-        st.session_state.translation_done = False
 
     # File uploader
     uploaded_file = st.file_uploader("Upload a PDF file", type=["pdf"])
     if uploaded_file is not None:
-        # Process the PDF file if translation not done yet
-        if not st.session_state.translation_done:
-            final_images = generate_pdf(uploaded_file)
-            st.session_state.final_images = final_images
-            st.session_state.translation_done = True
+        # Process the PDF file
+        with open("output.pdf", "wb") as f:
+            f.write(uploaded_file.getbuffer())
 
-    # Display the generated images
-    if "final_images" in st.session_state:
+        st.write("Converting PDF to images...")
+        image_paths = convert_pdf_to_images("output.pdf")
+
+        st.write("Removing text from images...")
+        final_images = []
+        for i, image_path in enumerate(image_paths):
+            img_without_txt, json_output = remove_text(image_path)
+            final_img = put_text_on_image(img_without_txt, json_output, i)
+            final_images.append(final_img)
+
+        st.write("Converting images back to PDF...")
+        convert_images_to_pdf(final_images, "eng_output.pdf")
+
+        st.success("Translation and background removal completed!")
+        st.download_button(
+            "Download Translated PDF", "eng_output.pdf", "Click here to download"
+        )
+
+        # Display the generated images
         st.write("Generated Images:")
-        for img_path in st.session_state.final_images:
+        for img_path in final_images:
             image = Image.open(img_path)
             st.image(image, caption=os.path.basename(img_path))
 
-    # Download the translated PDF
-    if st.button("Download Translated PDF") and st.session_state.translation_done:
-        with open("output.pdf", "rb") as f:
-            pdf_data = f.read()
-        st.download_button(label="Click here to download", data=pdf_data, file_name="output.pdf", mime="application/pdf")
 
 if __name__ == "__main__":
     main()
