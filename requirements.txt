@@ -91,3 +91,4 @@ tensorflow_addons
 pdf2image
 fpdf
 opencv-python
+tensorflow
