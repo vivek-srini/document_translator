@@ -12,6 +12,9 @@ import os
 import PIL.Image
 import os
 from fpdf import FPDF
+from doctr.io import DocumentFile
+from doctr.models import ocr_predictor
+model =ocr_predictor(pretrained=True)
 
 
 class BackgroundColorDetector():
