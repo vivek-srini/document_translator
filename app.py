@@ -14,6 +14,7 @@ import os
 from fpdf import FPDF
 from doctr.io import DocumentFile
 from doctr.models import ocr_predictor
+import base64
 model =ocr_predictor(pretrained=True)
 
 
@@ -115,6 +116,21 @@ def get_number_of_pages(pdf_file):
 
     return len(pages)
 
+
+
+
+
+
+def create_download_link(val, filename):
+    b64 = base64.b64encode(val)  # val looks like b'...'
+    return f'<a href="data:application/octet-stream;base64,{b64.decode()}" download="{filename}.pdf">Download file</a>'
+
+
+
+
+
+
+
 def overlay_strip(image, bg_color, x1,y1,x2,y2):
   """Overlays the strip on the image.
 
@@ -174,7 +190,24 @@ def remove_text(filename):
   return img,json_output
 
 
+report_text = st.text_input("Report Text")
 
+
+export_as_pdf = st.button("Export Report")
+
+def create_download_link(val, filename):
+    b64 = base64.b64encode(val)  # val looks like b'...'
+    return f'<a href="data:application/octet-stream;base64,{b64.decode()}" download="{filename}.pdf">Download file</a>'
+
+if export_as_pdf:
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font('Arial', 'B', 16)
+    pdf.cell(40, 10, report_text)
+    
+    html = create_download_link(pdf.output(dest="S").encode("latin-1"), "test")
+
+    st.markdown(html, unsafe_allow_html=True)
 
 
 def translate_sentence(text, target_language='es'):
@@ -276,7 +309,7 @@ def main():
         with open("eng_output.pdf", "rb") as pdf_file:
             PDFbyte = pdf_file.read()
         
-        st.download_button(label="Click here to download", data = PDFbyte, file_name="eng_output.pdf", mime="application/pdf")
+        create_download_link(PDFbyte,"test")
 
         # Display the generated images
         st.write("Generated Images:")
