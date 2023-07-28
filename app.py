@@ -245,7 +245,9 @@ def final_output(input_filename,output_filename):
 
 # ... (Previous code remains the same)
 
-def generate_pdf():
+# ... (Previous code remains the same)
+
+def generate_pdf(uploaded_file):
     # Process the PDF file
     with open("output.pdf", "wb") as f:
         f.write(uploaded_file.getbuffer())
@@ -265,6 +267,7 @@ def generate_pdf():
 
     st.success("Translation and background removal completed!")
     st.session_state.translation_done = True
+    st.session_state.final_images = final_images
 
 def main():
     st.title("Document Translation with Background Removal")
@@ -278,7 +281,7 @@ def main():
     if uploaded_file is not None:
         # Process the PDF file if translation not done yet
         if not st.session_state.translation_done:
-            generate_pdf()
+            generate_pdf(uploaded_file)
 
     # Display the generated images
     if "final_images" in st.session_state:
@@ -295,5 +298,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
