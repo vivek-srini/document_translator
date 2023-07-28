@@ -256,9 +256,9 @@ def main():
 
         st.write("Removing text from images...")
         final_images = []
-        for image_path in image_paths:
+        for i,image_path in enumerate(image_paths):
             img_without_txt, json_output = remove_text(image_path)
-            final_img = put_text_on_image(img_without_txt, json_output)
+            final_img = put_text_on_image(img_without_txt, json_output,i)
             final_images.append(final_img)
 
         st.write("Converting images back to PDF...")
