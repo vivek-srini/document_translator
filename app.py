@@ -275,6 +275,7 @@ def main():
         st.success("Translation and background removal completed!")
         with open("eng_output.pdf", "rb") as pdf_file:
             PDFbyte = pdf_file.read()
+        
         st.download_button(label="Click here to download", data = PDFbyte, file_name="eng_output.pdf", mime="application/pdf")
 
         # Display the generated images
