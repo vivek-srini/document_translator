@@ -266,7 +266,7 @@ def main():
 
         st.success("Translation and background removal completed!")
         if st.button("Download Translated PDF"):
-            with open("eng_output.pdf", "rb") as f:
+            with open("output.pdf", "rb") as f:
                 pdf_data = f.read()
             st.download_button(label="Click here to download", data=pdf_data, file_name="output.pdf", mime="application/pdf")
 
