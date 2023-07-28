@@ -92,3 +92,4 @@ pdf2image
 fpdf
 opencv-python
 tensorflow
+protobuf==3.20.*
