@@ -298,7 +298,7 @@ def main():
         with open("eng_output.pdf", "rb") as pdf_file:
             PDFbyte = pdf_file.read()
         
-        download_url = create_download_link(PDFbyte, 'test')
+        download_url = create_download_link(PDFbyte, 'translated_pdf')
 
         st.markdown(download_url, unsafe_allow_html=True)
 
