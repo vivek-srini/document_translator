@@ -63,23 +63,16 @@ class BackgroundColorDetector():
             return self.average_colour()
 
 
-def convert_pdf_to_images(pdf_file, output_folder):
-    """
-    Convert a PDF file to images.
-
-    Args:
-        pdf_file (str): The path to the PDF file.
-        output_folder (str): The folder to save the images to.
-
-    Returns:
-        None
-    """
-
+def convert_pdf_to_images(pdf_file):
     pages = pdf2image.convert_from_path(pdf_file)
+    image_paths = []
 
     for i, page in enumerate(pages):
         filename = f"page_{i}.png"
-        page.save(os.path.join(output_folder, filename))
+        page.save(filename)
+        image_paths.append(filename)
+
+    return image_paths
 
 def convert_images_to_pdf(image_paths, output_pdf):
     pdf = FPDF()
